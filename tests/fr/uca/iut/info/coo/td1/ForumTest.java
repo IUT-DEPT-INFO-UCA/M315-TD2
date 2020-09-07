@@ -1,4 +1,4 @@
-package fr.uca.iut.info.m315.td1;
+package fr.uca.iut.info.coo.td1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import fr.uca.iut.info.coo.td1.Forum;
+import fr.uca.iut.info.coo.td1.Member;
+import fr.uca.iut.info.coo.td1.Message;
 
 class ForumTest {
 
@@ -25,9 +29,7 @@ class ForumTest {
 		assertEquals(3, members.size());
 		
 		//Mario (Membre) poste un message WaitAndSee: “a quoi cela sert de courir?” sur le forum “OGCN”. 
-		Message wait = new Message("WaitAndSee", "a quoi cela sert de courir?", mario);
-		Thread.sleep(6000);
-		assertTrue(wait.getCreationDate().before(new Date()));
+		Message wait = new Message("a quoi cela sert de courir?", mario);
 		ogcn.addMessage(wait);
 		assertEquals(1, ogcn.getAllMessages().size());
 	
@@ -40,7 +42,7 @@ class ForumTest {
 		messages = ogcn.getNewMessages(walter);
 		assertEquals(0,messages.size());
 		assertEquals(1, ogcn.getAllMessages().size());
-		Message yes = new Message("Yes", "Tout à fait d'accord!", walter);
+		Message yes = new Message( "Tout à fait d'accord!", walter);
 		ogcn.addMessage(yes);
 		
 
@@ -52,7 +54,7 @@ class ForumTest {
 		//Youcef s'inscrit sur le forum puis poste un message PFFF : “Vous rigolez?”. 
 		Member youcef = new Member("Youcef");
 		ogcn.addMember(youcef);
-		Message pfff = new Message("PFFF", "Vous rigolez?", youcef);
+		Message pfff = new Message( "Vous rigolez?", youcef);
 		ogcn.addMessage(pfff);
 		messages = ogcn.getNewMessages(youcef);
 		assertEquals(3, messages.size());
@@ -76,7 +78,7 @@ class ForumTest {
 		removed = ogcn.remove(pfff, youcef);
 		assertTrue(removed);
 		messages = ogcn.getAllMessages();
-		assertEquals(numberOfMessages-1,messages.size());
+		assertEquals(numberOfMessages-1,messages.size(),"le message a bien été effacé");
 		
 		assertFalse(pfff.isOutOfDate(2));
 		Thread.sleep(2001);
