@@ -57,13 +57,13 @@ class ForumTest {
 		Message pfff = new Message( "Vous rigolez?", youcef);
 		ogcn.addMessage(pfff);
 		messages = ogcn.getNewMessages(youcef);
-		assertEquals(3, messages.size());
+		assertEquals(2, messages.size());		//Résultat attendu égal à 2 et non plus à 3 (le message 'PFFF' n'est pas nouveau pour Youcef, il en est l'auteur)
 		messages = ogcn.getNewMessages(youcef);
 		assertEquals(0, messages.size());
 		
 		//Walter demande à lire les nouveaux messages.
 		messages = ogcn.getNewMessages(walter);
-		assertEquals(2, messages.size());
+		assertEquals(1, messages.size());		//Résultat attendu égal à 1 et non plus à 2 (cas identique pour le message 'yes' et son auteur Walter)
 		
 		//Walter demande à effacer le message réalisé par Youcef, il n'a pas le droit, cela ne fait rien.
 		messages = ogcn.getAllMessages();
